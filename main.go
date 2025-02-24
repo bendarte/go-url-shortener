@@ -45,8 +45,8 @@ func main() {
     // Handle redirects for short URLs
     http.HandleFunc("/", redirectHandler)
 
-    log.Println("Server starting on :8080...")
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    log.Println("Server starting on :8000...")
+    log.Fatal(http.ListenAndServe(":8000", nil))
 }
 
 func createTable() {
