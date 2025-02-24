@@ -45,8 +45,16 @@ func main() {
     // Handle redirects for short URLs
     http.HandleFunc("/", redirectHandler)
 
-    log.Println("Server starting on :8000...")
-    log.Fatal(http.ListenAndServe(":8000", nil))
+    // Wrap your http.Handler with middleware
+    handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("X-Frame-Options", "DENY")
+        w.Header().Set("X-Content-Type-Options", "nosniff")
+        w.Header().Set("X-XSS-Protection", "1; mode=block")
+        http.DefaultServeMux.ServeHTTP(w, r)
+    })
+    
+    log.Println("Server starting on :8080...")
+    log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
 func createTable() {

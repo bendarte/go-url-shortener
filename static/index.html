@@ -94,7 +94,8 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Network response was not ok');
                 }
                 
                 const shortUrl = await response.text();
@@ -102,8 +103,8 @@
                 resultDiv.classList.add('success');
             } catch (error) {
                 console.error('Error:', error);
-                shortUrlP.textContent = 'Error creating short URL. Please try again.';
-                resultDiv.classList.add('success');
+                shortUrlP.textContent = `Error: ${error.message}`;
+                resultDiv.classList.add('success', 'error');
             }
         });
 
