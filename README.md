@@ -1,141 +1,138 @@
-# URL Shortener
+# Modern Web Tool Template
 
-A modern, full-stack URL shortening application with click tracking and analytics.
+A lightweight, fast web application template built with Go and SQLite. Features a beautiful, responsive UI that can be adapted for various tools and utilities.
 
 ## Features
 
-- **URL Shortening**: Convert long URLs into short, easy-to-share links
-- **Click Tracking**: Monitor how many times your shortened links have been clicked
-- **Modern UI**: Clean, responsive interface with animations and visual feedback
-- **Secure**: All links are validated and sanitized
+- Modern, responsive interface with gradient accents
+- Clean and intuitive user experience
+- SQLite database for persistent storage
+- Minimal external dependencies
+- Built-in security features
+- Mobile-friendly design
 
-## Tech Stack
+## UI Components
 
-### Backend
-- Go (Golang)
-- SQLite database
-- RESTful API
+- Gradient-accented headings
+- Smooth animations and transitions
+- Loading states and success indicators
+- Copy-to-clipboard functionality
+- Error handling with visual feedback
+- Responsive layout for all screen sizes
 
-### Frontend
-- React
-- TypeScript
-- Tailwind CSS
-- Vite
+## Prerequisites
 
-## Getting Started
+- Go 1.16 or higher
+- SQLite3
 
-### Prerequisites
-
-- Go 1.16+
-- Node.js 14+
-- npm or yarn
-
-### Installation
+## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/urlshortener.git
-   cd urlshortener
-   ```
+```bash
+git clone <your-repo-url>
+cd web-tool-template
+```
 
-2. Install backend dependencies:
-   ```bash
-   go mod download
-   ```
+2. Install the SQLite driver:
+```bash
+go mod download
+```
 
-3. Install frontend dependencies:
-   ```bash
-   cd frontend
-   npm install
-   ```
+## Running the Service
 
-### Running the Application
+Start the server with:
+```bash
+go run main.go
+```
 
-1. Start the backend server (from the project root):
-   ```bash
-   go run main.go
-   ```
-   The server will start on http://localhost:8000
+The server will start on port 8081. Access the web interface at:
+```
+http://localhost:8081
+```
 
-2. Start the frontend development server (from the frontend directory):
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   The frontend will be available at http://localhost:5173
+## API Structure
 
-## API Endpoints
-
-### Shorten URL
-- **URL**: `/shorten`
-- **Method**: `POST`
-- **Request Body**:
-  ```json
-  {
-    "url": "https://example.com/very/long/url/that/needs/shortening"
-  }
+### 1. Process Input
+- **Endpoint**: `/app/process`
+- **Method**: POST
+- **Form Parameters**: 
+  - Customizable based on tool requirements
+- **Response**: Processed result as plain text
+- **Example**:
+  ```bash
+  curl -X POST -d "input=your-data-here" http://localhost:8081/app/process
   ```
-- **Response**:
-  ```json
-  {
-    "short_url": "http://localhost:8000/abc123",
-    "clicks": 0,
-    "created_at": "2023-01-01T12:00:00Z"
-  }
-  ```
-
-### Redirect to Original URL
-- **URL**: `/:shortCode`
-- **Method**: `GET`
-- **Response**: Redirects to the original URL
-
-### Health Check
-- **URL**: `/health`
-- **Method**: `GET`
-- **Response**: Returns "OK" if the server is running
 
 ## Database Schema
 
-The application uses SQLite with the following schema:
+The service uses SQLite with a customizable schema:
 
 ```sql
-CREATE TABLE IF NOT EXISTS urls (
+CREATE TABLE IF NOT EXISTS entries (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    long_url TEXT NOT NULL,
-    short_code TEXT NOT NULL UNIQUE,
-    clicks INTEGER DEFAULT 0,
+    input TEXT NOT NULL,
+    output TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-## Troubleshooting
+## Project Structure
 
-### Port Already in Use
-
-If you see an error like `listen tcp :8000: bind: address already in use`, it means another process is using port 8000. You can find and stop the process with:
-
-```bash
-# Find the process
-lsof -i :8000
-
-# Kill the process (replace PID with the actual process ID)
-kill PID
+```
+.
+├── main.go           # Main server code
+├── static/           # Static web files
+│   └── index.html    # Web interface with modern UI
+├── go.mod           # Go module file
+├── go.sum           # Go module checksums
+└── data.db          # SQLite database (created on first run)
 ```
 
-### Frontend Can't Connect to Backend
+## UI Features
 
-If the frontend shows "Backend server is offline", make sure:
-1. The backend server is running
-2. CORS is properly configured (already set up in the code)
-3. You're using the correct URL (http://localhost:8000)
+The interface includes:
+- Gradient backgrounds and accents
+- Smooth animations
+- Loading states
+- Success/error notifications
+- Mobile-responsive design
+- Copy-to-clipboard functionality
+- Form validation
+- Interactive buttons and inputs
+
+## Error Handling
+
+The service includes proper error handling for:
+- Invalid inputs
+- Missing required fields
+- Database errors
+- Server errors
+- Network issues
+
+## Security Features
+
+- Input validation
+- SQL injection prevention
+- Security headers:
+  - X-Frame-Options
+  - X-Content-Type-Options
+  - X-XSS-Protection
+
+## Customization
+
+The template can be easily adapted for various tools such as:
+- Text processors
+- Data converters
+- Formatters
+- Generators
+- Calculators
+- Encoders/Decoders
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
-
-- [Go SQLite3 Driver](https://github.com/mattn/go-sqlite3)
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Vite](https://vitejs.dev/) 

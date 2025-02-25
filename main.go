@@ -53,8 +53,8 @@ func main() {
         http.DefaultServeMux.ServeHTTP(w, r)
     })
     
-    log.Println("Server starting on :8080...")
-    log.Fatal(http.ListenAndServe(":8080", handler))
+    log.Println("Server starting on :8081...")
+    log.Fatal(http.ListenAndServe(":8081", handler))
 }
 
 func createTable() {
